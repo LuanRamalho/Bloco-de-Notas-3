@@ -20,8 +20,10 @@ class NotePad(QMainWindow):
         self.status_bar = QStatusBar()
         self.setStatusBar(self.status_bar)
         self.character_count_label = QLabel("Caracteres: 0 (com linhas) / 0 (sem linhas)")
+        self.word_count_label = QLabel("Palavras: 0")
         self.cursor_position_label = QLabel("Linha: 1, Coluna: 1")
         self.status_bar.addWidget(self.character_count_label)
+        self.status_bar.addWidget(self.word_count_label)
         self.status_bar.addPermanentWidget(self.cursor_position_label)
 
         # Criar barra de menu
@@ -115,7 +117,7 @@ class NotePad(QMainWindow):
             "Esse bloco de notas foi desenvolvido no dia 18 de janeiro de 2025 por Luan da Silva Ramalho, um jovem nerd,"
             " formado em ciência da computação pela Unicarioca, Centro Universitário Carioca, no Rio de Janeiro, que ama programação"
             ", desenvolvimento de softwares e diversas áreas em tecnologia da informação. Ele ama o que ele faz e tem a maior felicidade"
-            "em desenvolver os softwares e colocar no github para compartilhar tudo que ele gosta de fazer."
+            " em desenvolver os softwares e colocar no github para compartilhar tudo que ele gosta de fazer."
         )
 
     def update_character_count(self):
@@ -124,9 +126,11 @@ class NotePad(QMainWindow):
             text = current_widget.toPlainText()
             total_chars_with_lines = len(text)
             total_chars_without_lines = len(text.replace("\n", ""))
+            word_count = len(text.split())
             self.character_count_label.setText(
                 f"Caracteres: {total_chars_with_lines} (com linhas) / {total_chars_without_lines} (sem linhas)"
             )
+            self.word_count_label.setText(f"Palavras: {word_count}")
 
     def update_cursor_position(self):
         current_widget = self.tabs.currentWidget()
